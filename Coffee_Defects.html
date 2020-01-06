@@ -1,0 +1,171 @@
+<html>
+   <head>
+	   <link rel="stylesheet" type="text/css" href="styles.css">
+       <title> Patrick Lowe - Assignment</title>
+	   <script src="https://cdn.jsdelivr.net/npm/vega@3.0.10"></script>
+	   <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.1.2"></script>
+	   <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.0.0"></script>
+      <style>
+         body {
+         font-family: sans-serif;
+         }
+         .vega-actions a {
+         padding: 0.2em;
+         }
+      </style>
+   </head>
+   <body>
+   
+<ul>
+  <li><a href="Score_VS_Alt.html">Q1. Rating Vs Altitude</a></li>
+  <li><a href="Coffee_Production_by_Company.html">Q2. Coffee Production by Company</a></li>
+  <li><a class="active" href="Coffee_Defects.html">Q3. Coffee Defects</a></li>
+  <li><a href="Attempts.html">| Attempts</a></li>
+</ul>
+
+<h1>Patrick Lowe * Arabica Coffee</h1>
+
+<div id="Q1" class="tabcontent">
+      <table>
+         <tbody>
+            <tr>
+               <td style="vertical-align: top; width:200px"><strong>Dataset description:</strong></td>
+               <td style="vertical-align: top;"> This data set is based off of Arabica Coffee. It contains 
+				information on who owns the farm, farm name, country of production, the company, altitude 
+				that the coffee was grown at, when it was harvested, how it was harvested, and finally the 
+				attributes associated with the coffee</td>
+            </tr>
+            <tr>
+               <td style="vertical-align: top;"><strong>Initial questions</strong></td>
+               <td style="vertical-align: top;">Does the number of defects depend on the Farm or the Variety?</td>
+            </tr>
+         </tbody>
+      </table>
+      <hr />
+      <div id="vis" align="center"></div>
+      <hr />
+      <table style="width: 850px; margin-left: auto; margin-right: auto;" cellspacing="5" cellpadding="5">
+         <tbody>
+            <tr>
+               <td style=""><strong>Description:&nbsp;</strong></td>
+               <td style="">In order to be able to answer this question, 2 graphs were necessary to do a comparison.
+			   The first graph on the left is the Variety/Blend plotted against the total defects. The total defects is 
+			   calculated by Category 1 defects, Category 2 defects, and quakers (beans that hadn't roasted correctly). 
+			   These values are binned, in increments of 50. The second graph then shows the farms plotted against defects.
+			   The colour intensity of each square on both graphs represents the count of records with the relevant number of
+			   defects. In the code, I have commented out the line that verifies valid data. Unfortunately, this line causes the
+			   graph not to load within the webpage, therefore there is an extra line of blank data field on the top row.</td>
+            </tr>
+            <tr>
+               <td style=""><strong>Insight:</strong></td>
+               <td style="">The blend with the most occurring, lowest defects are Caturra (AlmaCafe) and Bourbon (Asociacion 
+			   Nacional Del Café). However, the farm with the least defects are fairly tied between Almacafe, Asociacion 
+			   Nacional Del Café, and Speciality Coffee Association (S.C.A) respectively. Oddly, even though the first 2 also
+			   rank in the best blend, the 3rd (S.C.A) becomes so highly ranked. When you view the variety against the farms, provided
+			   in a screenshot with this submission, you can see that S.C.A contains a moderate amount of defects, like most other farms
+			   but a larger variety of blends, thus a higher total. What is also worth noting is that these 3 blends/farms have a larger
+			   graph presence on the defects, while most blends/farms totter about the 100-150 mark these 3 stretch across up 400 marker. 
+			   This could be due to a larger production of that blend, or at that farm than others. I have included an average tick mark in red
+			   per blend/farm to try encapsulate better the average amount of defects. From this, it is possible to see that Bourbon & Caturra
+			   have low defects, while the farm that produces these blends have more defects. To me, this shows that the number of defects is down
+			   to the farm that produces the blend, and not the blend of coffee itself. Although, maybe farms are taking better care on the blends 
+			   that are higher sellers.</td>
+            </tr>
+            <tr>
+               <td style=""><strong>Design considerations</strong></td>
+               <td style="">As it is not possible to encapsulate the data in such a form that would answer this question I decided that 2 graphs were 
+			   necessary. I have also included a screenshot of the variety against farm, while I felt this was not particulalry necessary to answer the
+			   question, I feel that it does aid the understanding of the answer/question. Previous designs were considered, coffee by country, blends 
+			   by country etc but I felt that having the blends VS the farms that produced them was finely tuned enough to answer this question. Once the
+			   data was decided, the next step was designing a chart that was easily interpretated. Line charts were tried, but I felt that it was too niche
+			   and not enough data was being showcased. Bar charts were attempted and while it was an improvement on line charts, I felt that there was
+			   still room for improvement. I settled on a multiple heatmap style chart, which could show farm, variety, defects, and occurrences in the most
+			   easy to read graph. In order to aid further understanding, I also included an average tick mark. This should show the viewer that a blend/farm
+			   with a lot of varying defect counts may be higher or lower than anticipated without the tick mark. For example, Bourbon has a large range of defects
+			   but has a rather low average defect.</td>
+            </tr>
+            <tr>
+               <td style=""><strong>Data Filtering and Transformation:&nbsp;</strong></td>
+               <td style="">Since the previous 2 questions, I have not performed any data processing on the file. For this question a total defects datum was
+			   created which added the Category One Defects (full black, full sour, large stones/sticks, etc), Category Two Defects (husk damage, insect damage, 
+			   partial black/sour, floater, small stones/sticks), and Quakers (unripened coffee beans) together per record. These total defects were then filtered
+			   to be above 0 (since the valid configuration on the graph would not load properly), and lower than 1,000 total as there were a few outliers. Aside from 
+			   this, every farm and variety were used. Again, since there were special characters included in this dataset but did not affect the data collection or 
+			   presentation I decided to leave them unchanged. To try keep the labels concise, I had changed the name 'Speciality Coffee Association' to an abbreviated
+			   'S.C.A'. As the 'title' filter would not correctly place the title while using multiples I have included whitespace so that the 'Average Defects' title
+			   is visible.</td>
+            </tr>
+         </tbody>
+      </table>
+</div>
+      <script type="text/javascript">
+        var yourVlSpec =  
+{
+  "title": {
+    "text": "                                                          Total Defects by Blend",
+    "anchor": "END",
+    "color": "#0A4E9E",
+    "fontSize": 28
+  },
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/patricklowe/Information_Visualisation/master/arabica_Cleaned_Data.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "calculate": "(datum.Category_One_Defects + datum.Category_Two_Defects + datum.Quakers)",
+      "as": "Defects"
+    },
+    {"filter": "datum.Defects > 0"},
+    {"filter": "datum.Defects < 1000"}
+  ],
+  "repeat": {"column": ["Variety", "In_Country_Partner"]},
+  "spec": {
+    "layer":[{
+    "mark": "bar",
+    "width": 400,
+    "height": 400,
+    "encoding": {
+      "y": {
+        "field": {"repeat": "column"},
+        "type": "ordinal",
+        "axis": {"title": "Variety / Farm"}
+      },
+      "x": {
+        "field": "Defects",
+        "bin": {"maxbins": 25},
+        "type": "ordinal",
+        "axis": {"title": "Total Defects"}
+      },
+      "color": {"aggregate": "count", "type": "quantitative"}
+    }
+  },
+    {
+      "mark": "tick",
+      "encoding": {
+        "x": {
+          "field": "Defects",
+          "type": "quantitative",
+          "aggregate":"average",
+        "scale": {"range": [0, 100]}
+        },
+        "y": {
+        "field": {"repeat": "column"},
+          "type": "ordinal"
+        },
+        "color": {"value": "red"}
+      }
+    }
+  ]
+},
+  "config": {
+    "tick": {
+      "thickness": 2.5
+    }
+  }
+}
+vegaEmbed("#vis", yourVlSpec);
+      </script>
+   </body>
+</html>

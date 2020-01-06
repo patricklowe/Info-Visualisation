@@ -1,0 +1,142 @@
+<html>
+   <head>
+   <link rel="stylesheet" type="text/css" href="styles.css">
+      <title> Patrick Lowe - Assignment</title>
+	   <script src="https://cdn.jsdelivr.net/npm/vega@3.0.10"></script>
+	   <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.1.2"></script>
+	   <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.0.0"></script>
+      <style>
+         body {
+         font-family: sans-serif;
+         }
+         .vega-actions a {
+         padding: 0.2em;
+         }
+      </style>
+   </head>
+   <body>
+
+<ul>
+  <li><a href="Score_VS_Alt.html">Q1. Rating Vs Altitude</a></li>
+  <li><a class="active" href="Coffee_Production_by_Company.html">Q2. Coffee Production by Company</a></li>
+  <li><a href="Coffee_Defects.html">Q3. Coffee Defects</a></li>
+  <li><a href="Attempts.html">| Attempts</a></li>
+</ul>
+
+<h1>Patrick Lowe - Arabica Coffee</h1>
+
+<div id="Q1" class="tabcontent">
+      <table style="width: 850px; margin-left: auto; margin-right: auto;" cellspacing="5" cellpadding="5">
+         <tbody>
+            <tr>
+               <td style="vertical-align: top;"><strong>Dataset description:</strong></td>
+               <td style="vertical-align: top;"> This data set is based off of Arabica Coffee. It contains 
+				information on which company owns the farm, the farm name, the country of production, the altitude 
+				that the coffee was grown at, when it was harvested, how it was harvested, and finally the 
+				attributes associated with the coffee (Aroma, body, balance, flavor etc).
+               </td>
+            </tr>
+            <tr>
+               <td style="vertical-align: top;"><strong>Initial questions</strong></td>
+               <td style="vertical-align: top;">How does coffee production vary across the years, do certain countries have
+			   a monopoly on the coffee market?</td>
+            </tr>
+         </tbody>
+      </table>
+      <hr />
+      <div id="vis" align="center"></div>
+      <hr />
+      <table style="width: 850px; margin-left: auto; margin-right: auto;" cellspacing="5" cellpadding="5">
+         <tbody>
+            <tr>
+               <td style=""><strong>Description:&nbsp;</strong></td>
+               <td style="">This graph shows the total production of coffee (weight of each bag X total bags) by country for each year. The X
+			   axis shows the year of production, the Y axis has each country, and the size of the points represents the total
+			   coffee produced. The colour is only to help distinquish different countries.</td>
+            </tr>
+            <tr>
+               <td style=""><strong>Insight:</strong></td>
+               <td style="">It would appear that Ethiopa, Guatemala, Colombia, and Brazil are the most frequent, largest producers of coffee from this 
+				data set. While they have kept a steady supply of coffee, Mexico, Honduras, and El Savador have begun to climb the ranks. 
+				There are countries with sporadic appearances of production on coffee, this could be due to a new blend being tested for the market, assuming
+				that the data is reliable. This may be due to the increase in "speciality" coffee blends becoming a trend in recent years.</td>
+            </tr>
+            <tr>
+               <td style=""><strong>Design considerations</strong></td>
+               <td style="">For this graph I wanted to produce the amount of coffee by country, but then I had design issues with
+			   what else to compare this with: farm, owner, if flavours improved by mass production, so I settled on production by 
+			   the years. I then began designing the best way to represent this information. I work on line charts to see if certain
+			   years were more valuable to certain countries, I found the vega-lite examples helped quickly aid in visualising the data
+			   I was working with. The chart use allows for year, country, and amount to be encapsulated for legibility. While it is still 
+			   difficult to represent the data clearly, I believe this graph presents data in a concise way to answer the question. I would have
+			   liked to improve how coffee size was represented but there was too large of a leap between common coffee and large scale production.</td>
+            </tr>
+            <tr>
+               <td style=""><strong>Data filtering and transformation:&nbsp;</strong></td>
+               <td style="">I created a new column ("Weight_Unit") which would mark if the coffee was weighed in Kilograms (KG) or pounds 
+			   (LBS), and then filtered for Kilograms only. The weight unit was also removed from "Bag_Weight". Any columns were weight 
+			   was not entered was ignored. I got the total weight produced each year by multiplying the bag weight by the total number of
+			   bags. This was then filtered by year, of each country and the average weight that was produced that period. I also filtered some
+			   outliers that severly threw of the scale of representation. I believe this was due to incorrectly filed data (110,000M in Nicaragua
+			   when it has a max of 2,100M).</td>
+            </tr>
+         </tbody>
+      </table>
+</div>
+      <script type="text/javascript">
+        var yourVlSpec =  
+{
+"title": {
+    "text": "Coffee Produced per Year by Country",
+    "anchor": "mid",
+    "color":"#047E25",
+    "fontSize": 18
+},
+ "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+ "data": {
+"url":"https://raw.githubusercontent.com/patricklowe/Information_Visualisation/master/arabica_Cleaned_Data.csv",
+ "format": {"type": "csv"}},
+  "transform": [
+  {"filter": "datum.Number_of_Bags > 0"},
+  {"filter": "datum.altitude_mean_meters < 3000"},
+  {"filter": {"field": "Harvest_Year", "oneOf": ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"]}},
+  {"filter": {
+    "field": "Weight_Unit", "equal": "kg"}},
+  {"calculate": "(datum.Number_of_Bags * datum.Bag_Weight)","as": "Weight"},
+  {"filter": "datum.Weight < 20000"}],
+  "mark": {
+    "type": "circle",
+    "opacity": 0.7,
+    "stroke": "black",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "x": {
+      "field": "Harvest_Year",
+      "type": "nominal",
+        "axis": {"title": "Year of Harvest"}
+    },
+    "y": {
+        "field": "Country_of_Origin", 
+        "type": "nominal",
+        "axis": {"title": "Country"}
+      },
+      "size": {
+        "field": "Weight",
+        "aggregate":"average",
+        "type": "ordinal",
+        "legend":null,
+        "scale": {"range": [0, 2000]}
+    },
+      "color": {
+        "field": "Country_of_Origin", 
+        "legend":null,
+        "type": "nominal"}
+  },
+  "width" : 600,
+  "height": 600
+		}
+vegaEmbed("#vis", yourVlSpec);
+      </script>
+   </body>
+</html>

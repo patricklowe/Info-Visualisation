@@ -1,0 +1,85 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title> Patrick Lowe - Assignment</title>
+<style>
+div.gallery {
+  margin-left: 22.5%;
+  align: center;
+  border: 1px solid #ccc;
+  float: left;
+  width: 600px;
+}
+
+div.gallery:hover {
+  border: 3px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 10px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<ul>
+  <li><a href="Score_VS_Alt.html">Q1. Rating Vs Altitude</a></li>
+  <li><a href="Coffee_Production_by_Company.html">Q2. Coffee Production by Company</a></li>
+  <li><a href="Coffee_Defects.html">Q3. Coffee Defects</a></li>
+  <li><a class="active" href="Attempts.html">| Attempts</a></li>
+</ul>
+
+<h1>Patrick Lowe * Arabica Coffee</h1>
+
+<div class="gallery">
+  <a>    <img src="Q1_Attempt_1.png" width="600" height="400">		</a>
+  <div class="desc">Q1. Attempt 1. Each line is an attribute of the coffee. The green line on the 
+  top is the overall rating of the coffee. All attributes appear to follow the same direction as 
+  eachother, except for when the graph hits its peak at an altitude of 2,000M. I felt this was a lot
+  of overlapping information regarding a similair category and so decided to redesign the graph.</div>
+</div>
+<div class="gallery">
+  <a>    <img src="Q1_Attempt_2.png" width="600" height="400">		</a>
+  <div class="desc">With this attempt I used just the overall average rating VS the average altitude, with a heatmap of
+  the count of records at that rating and altitude. There didn't appear to be any distinct changes so I scaled the graph
+  down to 80-88 overall rating. This highlighted the differences more distinctly.</div>
+</div>
+
+<div class="gallery">
+  <a>    <img src="Q2_Attempt_1.png" width="600" height="400">		</a>
+  <div class="desc">This was the first failed attempt at this graph. It had the year of harvest on the X axis with the 
+  country on the Y axis. There was little information shown on how much was sold, rather it showed if if a country made 
+  any coffee sales that year.</div>
+</div>
+<div class="gallery">
+  <a>    <img src="Q3_Attempt_1.png" width="600" height="400">		</a>
+  <div class="desc">This graph was mid-design of Q3. It was plotting variety versus country. I was not loading the data in 
+  correctly so it would not load the way I had intended. If I had stuck with this design, the information that would be presented
+  would not be enough to answer the question. It was getting variety by the country, I had later decided to do variety VS defects.</div>
+</div>
+
+<div class="gallery">
+  <a>    <img src="Q3_Attempt_3.png" width="600" height="400">		</a>
+  <div class="desc">In this attempt I had tried to show the coffee variety, the country it came from, the count of defects, plus the overall
+  rating of coffe from that region. Unfortunately the line for average rating was not as clear as I had hoped, and the count of defects was 
+  too varying to receive a legible heatmap. Toying with other colours didn't really help this as the extreme became too intense, drawing attention
+  away from the much paler data markers, or vice versa.</div>
+</div>
+<div class="gallery">
+  <a>    <img src="Q3_Attempt_2.png" width="600" height="400">		</a>
+  <div class="desc">This last image is more of a supplement for Question 3. It shows the variety/blend and from which farm it is most popular on.
+  It should help the user understand if the defects are coming from the farm, or the variety as a variety with a high defect count coming from a 
+  farm with a low defect farm could mean it is down to the variety (maybe insects prefer this blend, perhaps the conditions it is grown in affect it, etc).
+  Whereas a variety with low defects coming from a Farm with high defect count could suggest that the farm is mishandling the beans in general.</div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<html>
+   <head>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+      <title> Patrick Lowe - Assignment</title>
+	   <script src="https://cdn.jsdelivr.net/npm/vega@3.0.10"></script>
+	   <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.1.2"></script>
+	   <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.0.0"></script>
+      <style>
+         body {
+         font-family: sans-serif;
+         }
+         .vega-actions a {
+         padding: 0.2em;
+         }
+      </style>
+   </head>
+   <body>
+   
+   <ul>
+  <li><a class="active" href="Score_VS_Alt.html">Q1. Rating Vs Altitude</a></li>
+  <li><a href="Coffee_Production_by_Company.html">Q2. Coffee Production by Company</a></li>
+  <li><a href="Coffee_Defects.html">Q3. Coffee Defects</a></li>
+  <li><a href="Attempts.html">| Attempts</a></li>
+</ul>
+
+<h1>Patrick Lowe - Arabica Coffee</h1>
+
+<div id="Q1" class="tabcontent">
+      <table style="width: 850px; margin-left: auto; margin-right: auto;" cellspacing="5" cellpadding="5">
+         <tbody>
+            <tr>
+               <td style="vertical-align: top;"><strong>Dataset description:</strong></td>
+               <td style="vertical-align: top;"> This data set is based off of Arabica Coffee. It contains 
+				information on which company owns the farm, the farm name, the country of production, the altitude 
+				that the coffee was grown at, when it was harvested, how it was harvested, and finally the 
+				attributes associated with the coffee (Aroma, body, balance, flavor etc).
+               </td>
+            </tr>
+            <tr>
+               <td style="vertical-align: top;"><strong>Initial questions</strong></td>
+               <td style="vertical-align: top;">Does the altitude at which coffee is grown affect the overall 
+				rating of coffe? If so, do companies favour the higher rated altitude?</td>
+            </tr>
+         </tbody>
+      </table>
+      <hr />
+      <div id="vis" align="center"></div>
+      <hr />
+      <table style="width: 850px; margin-left: auto; margin-right: auto;" cellspacing="5" cellpadding="5">
+         <tbody>
+            <tr>
+               <td style=""><strong>Description:&nbsp;</strong></td>
+               <td style="">This graph shows the overall rating of coffee per altitude range, 
+			   and also the amount of farms that produce coffee at that altitude. Intuitively, the higher the bar the
+			   better that the coffee has scored based on a combination of its attributes (Aroma, Acidity, Aftertaste,
+			   Body, Balance, Flavor etc). The darker the bar the more coffee that was produced at that altitude range, 
+			   on average.</td>
+            </tr>
+            <tr>
+               <td style=""><strong>Insight:</strong></td>
+               <td style="">It appears that there are 2 peaks in this graph, the first is at 
+			   400-500 Meters, and then it slowly picks up again until it reaches 2,000 Meters. The best coffee 
+			   rating, on average, occurs at 2,000 to 2,100 meters before it dips. Interestingly, there only appears
+			   to be 9 counts of coffee at this altitude, the most production of coffee occurs at 1,200M - 1,300M, 
+			   and 1,700M - 1,800M at 107 counts. This could be due to the country of production being at that altitude. 
+			   Coffee producers may not be willing to grow coffee at such altitudes as the cost of transport, maintenance,
+			   and other such factors (maybe available land is limited at such heights) is probably not enough to justify 
+			   ~4 rating points. I have included a screenshot of this chart where the scale is from 0-100, this better shows
+			   the neglible difference in ratings by altitude. Overall, altitude appears to have a minor influence on coffee 
+			   attributes, but it may help provide insight to startups about how to better advertise their products or how 
+			   a coffee connoisseur should make a purchase. For example, Gardelli coffees are amongst the best rated coffee
+			   in the world, by the Speciality Coffee Association.</td>
+            </tr>
+            <tr>
+               <td style=""><strong>Design considerations</strong></td>
+               <td style="">For this graph I had played around with heat maps (which didn't work with the data the way I had hoped),
+			   line graphs (which I felt had too much data displayed), but settled on a bar chart that takes in aspects of a heat map 
+			   (colour density of coffee count by altitude). I feel this graph allows users to view the average points per coffee, 
+			   the altitude it was grown at, and the popularity (or commonality) of that coffee. It encapsulates a lot of data in an 
+			   easily readable graph. I feel that viewers are immediately drawn to the darker blue bars (for popular coffees), 
+			   then to the towering bar (for best coffee). I have included screenshots with this submission of previous attempts for this question.
+			   Initially, I had tried to plot all the different attributes against the mean altitude, this should the same results but after hitting
+			   a peak of 2,000M attributes dropped quicker than others, while this was interesting I felt the current bar chart/ heatmap combo 
+			   provides a better insight as it also shows the popular altitude for growing coffee.
+			   </td>
+            </tr>
+            <tr>
+               <td style=""><strong>Data filtering and transformation:&nbsp;</strong></td>
+               <td style="">I used the provided mean of altitude to base the heights off of, then filtered
+			   these altitudes between 0 and 5,000 Meters. There was a very limited supply of data from 11,000M+ that I felt would
+			   distract the viewer from the information, as it distorted the scale of the graph. I also filtered out altitudes that
+			   were measured in feet (unit_of_measurement = ft), since the Altitude_mean_meters may or may not be accurate for these.
+			   In terms of the csv, the link in our assignment gave 4 datasets to work from: Arabica Clean, Arabica Raw, Robusta Clean, and 
+			   Robusta Raw. I chose to work from Arabica Clean, but did make some minor changes of my own. I cleaned up any double-quotes and 
+			   some estranged characters throughout the company/producer names. I did notice that some names contained an accent that would look
+			   odd in the csv file, but since it had no impact on data grouping, and does show up correctly in the graph I decided to leave it in.</td>
+            </tr>
+         </tbody>
+      </table>
+</div>
+      <script type="text/javascript">
+        var yourVlSpec =  {
+		"title": {
+			"text": "Coffee Score VS Altitude",
+			"anchor": "mid",
+			"color":"#9E5305",
+      "font":"Helvetica Neue"
+      },
+		 "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+		 "data": {
+		"url":"https://raw.githubusercontent.com/patricklowe/Information_Visualisation/master/arabica_Cleaned_Data.csv",
+		 "format": {"type": "csv"}},
+		  "transform": [
+		  {"filter": "datum.altitude_mean_meters > 0"},
+		  {"filter": {"field":"unit_of_measurement","equal":"m"}},
+		  {"filter": "datum.altitude_mean_meters < 5000"}],
+		  "mark": "bar",
+		  "encoding": {
+			 "y": {
+			   "field": "Total_Cup_Points",
+			   "type": "quantitative",
+			   "aggregate":"median",
+				"scale":{"zero":false},
+        "title":"Coffee Score"
+			  },
+			  "x": {
+				"field":"altitude_mean_meters",
+				"type": "ordinal",
+				"bin":{"maxbins" : 50},
+				"scale":{"zero":false},
+        "title":"Mean Altitude (M)"
+			   },
+			"color":{
+			  "aggregate":"count",
+			  "type":"quantitative",
+        "legend":{"title":"Coffees at Alt."}
+        }
+			  },
+		  "width":500,
+		  "height": 500
+        }
+vegaEmbed("#vis", yourVlSpec);
+      </script>
+   </body>
+</html>
